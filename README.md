@@ -20,11 +20,14 @@ npm run dev
 
 Open [http://localhost:3000](http://localhost:3000).
 
-To enable live CopilotKit chat responses, add an OpenAI key before starting the app:
+To enable live CopilotKit chat responses, add an OpenRouter key before starting the app:
 
 ```bash
-export OPENAI_API_KEY=your_openai_key
+cp .env.example .env.local
+# edit .env.local and set OPENROUTER_API_KEY
 ```
+
+The CopilotKit runtime uses OpenRouter at `https://openrouter.ai/api/v1` and defaults to the `nex-agi/nex-n2-pro:free` model. You can override it with `OPENROUTER_MODEL`.
 
 The app stores demo changes in browser local storage. Use **Reset demo data** in the UI to restore the seed records.
 
