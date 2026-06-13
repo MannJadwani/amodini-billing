@@ -165,8 +165,24 @@ function createInvoiceLines(
 }
 
 export function BillingWorkspace() {
-  const [state, setState] = useState<BillingState>(() => cloneSeedState());
-  const [hydrated, setHydrated] = useState(false);
+  const [state, setState] = useState<BillingState>(() => {
+    if (typeof window === "undefined") {
+      return cloneSeedState();
+    }
+
+    const savedState = window.localStorage.getItem(STORAGE_KEY);
+
+    if (!savedState) {
+      return cloneSeedState();
+    }
+
+    try {
+      return JSON.parse(savedState) as BillingState;
+    } catch {
+      window.localStorage.removeItem(STORAGE_KEY);
+      return cloneSeedState();
+    }
+  });
   const [selectedCustomerId, setSelectedCustomerId] = useState("cust-001");
   const [activityLog, setActivityLog] = useState<ActivityEntry[]>([
     {
@@ -201,24 +217,10 @@ export function BillingWorkspace() {
   });
 
   useEffect(() => {
-    const savedState = window.localStorage.getItem(STORAGE_KEY);
-
-    if (savedState) {
-      try {
-        setState(JSON.parse(savedState) as BillingState);
-      } catch {
-        window.localStorage.removeItem(STORAGE_KEY);
-      }
-    }
-
-    setHydrated(true);
-  }, []);
-
-  useEffect(() => {
-    if (hydrated) {
+    if (typeof window !== "undefined") {
       window.localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
     }
-  }, [hydrated, state]);
+  }, [state]);
 
   const selectedCustomer = useMemo(
     () =>
