@@ -3,17 +3,18 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useBilling } from "../lib/store";
+import { Icon, type IconName } from "./Icon";
+import { DensityToggle } from "./Density";
 
-const NAV = [
-  { href: "/", label: "Home", icon: "🏠", short: "Home" },
-  { href: "/bills", label: "Bills", icon: "🧾", short: "Bills" },
-  { href: "/customers", label: "Customers", icon: "👥", short: "People" },
-  { href: "/products", label: "Products", icon: "📦", short: "Items" },
-  { href: "/payments", label: "Payments", icon: "💰", short: "Pay" },
-  { href: "/settings", label: "Settings", icon: "⚙️", short: "Setup" },
+const NAV: { href: string; label: string; icon: IconName; short: string }[] = [
+  { href: "/", label: "Home", icon: "home", short: "Home" },
+  { href: "/bills", label: "Bills", icon: "receipt", short: "Bills" },
+  { href: "/customers", label: "Customers", icon: "users", short: "People" },
+  { href: "/products", label: "Products", icon: "box", short: "Items" },
+  { href: "/payments", label: "Payments", icon: "wallet", short: "Pay" },
+  { href: "/settings", label: "Settings", icon: "settings", short: "Setup" },
 ];
 
-// Bottom bar shows the 5 most important destinations on small screens.
 const MOBILE = [NAV[0], NAV[1], NAV[2], NAV[3], NAV[5]];
 
 function isActive(pathname: string, href: string): boolean {
@@ -48,13 +49,14 @@ export function Sidebar() {
           href={item.href}
           className={`nav-link ${isActive(pathname, item.href) ? "is-active" : ""}`}
         >
-          <span className="ico" aria-hidden>
-            {item.icon}
+          <span className="ico">
+            <Icon name={item.icon} size={21} />
           </span>
           {item.label}
         </Link>
       ))}
-      <div className="sidebar-footer">Simple Billing · Works offline in your browser</div>
+      <DensityToggle />
+      <div className="sidebar-footer">Works offline in your browser</div>
     </nav>
   );
 }
@@ -65,6 +67,8 @@ export function MobileBar() {
     <div className="mobile-bar">
       <Brand />
       <strong>{state.settings.businessName || "Simple Billing"}</strong>
+      <span className="spacer" />
+      <DensityToggle />
     </div>
   );
 }
@@ -79,8 +83,8 @@ export function MobileNav() {
           href={item.href}
           className={isActive(pathname, item.href) ? "is-active" : ""}
         >
-          <span className="ico" aria-hidden>
-            {item.icon}
+          <span className="ico">
+            <Icon name={item.icon} size={22} />
           </span>
           {item.short}
         </Link>

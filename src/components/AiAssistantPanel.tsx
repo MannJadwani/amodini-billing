@@ -6,6 +6,7 @@ import { useBilling } from "../lib/store";
 import { businessSummary, GLOSSARY, reminderMessage, unpaidBills } from "../lib/insights";
 import { whatsappLink, formatMoney } from "../lib/format";
 import { Button } from "./ui";
+import { Icon } from "./Icon";
 
 type Tab = "help" | "chat";
 
@@ -17,7 +18,7 @@ export function AiAssistantPanel({ configured }: { configured: boolean }) {
     <>
       {!open ? (
         <div className="assistant-fab no-print">
-          <Button variant="primary" size="lg" icon="🤖" onClick={() => setOpen(true)}>
+          <Button variant="primary" size="lg" icon={<Icon name="sparkles" />} onClick={() => setOpen(true)}>
             Smart Help
           </Button>
         </div>
@@ -26,9 +27,14 @@ export function AiAssistantPanel({ configured }: { configured: boolean }) {
       {open ? (
         <aside className="assistant-panel no-print" aria-label="Smart help assistant">
           <div className="assistant-head">
-            <strong style={{ fontSize: "1.2rem" }}>🤖 Smart Help</strong>
+            <strong style={{ display: "flex", alignItems: "center", gap: 8 }}>
+              <span style={{ color: "var(--accent)", display: "inline-flex" }}>
+                <Icon name="sparkles" size={22} />
+              </span>
+              Smart Help
+            </strong>
             <Button variant="ghost" onClick={() => setOpen(false)} aria-label="Close">
-              ✕ Close
+              <Icon name="x" size={18} /> Close
             </Button>
           </div>
 
@@ -66,7 +72,7 @@ function SmartHelp() {
       <div className="card card-pad">
         <div className="card-title">Payment reminders</div>
         {unpaid.length === 0 ? (
-          <p className="muted">Great — no pending payments right now. 🎉</p>
+          <p className="muted">Great — no pending payments right now.</p>
         ) : (
           <div className="row-list">
             {unpaid.map((b) => (
@@ -84,7 +90,7 @@ function SmartHelp() {
                   target="_blank"
                   rel="noreferrer"
                 >
-                  💬 Remind
+                  <Icon name="message" size={18} /> Remind
                 </a>
               </div>
             ))}

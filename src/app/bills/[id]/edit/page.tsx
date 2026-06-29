@@ -14,7 +14,7 @@ export default function EditBillPage({ params }: { params: Promise<{ id: string 
   if (!bill) {
     return (
       <EmptyState
-        emoji="🔍"
+        icon="search"
         title="Bill not found"
         message="This bill may have been deleted."
         action={

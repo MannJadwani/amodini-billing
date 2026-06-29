@@ -3,7 +3,8 @@
 import Link from "next/link";
 import { useMemo, useState } from "react";
 import { useBilling } from "../../lib/store";
-import { EmptyState, LinkButton, PageHeader, PaymentStatusBadge } from "../../components/ui";
+import { EmptyState, LinkButton, PageHeader, PaymentStatusBadge, SearchInput } from "../../components/ui";
+import { Icon } from "../../components/Icon";
 import { formatMoney, formatDate } from "../../lib/format";
 import { BillStatus, BILL_STATUS_LABELS } from "../../lib/types";
 
@@ -42,16 +43,16 @@ export default function BillsPage() {
         title="Bills"
         subtitle="All your bills in one place."
         actions={
-          <LinkButton href="/bills/new" variant="primary" size="lg" icon="➕">
+          <LinkButton href="/bills/new" variant="primary" size="lg" icon={<Icon name="plus" />}>
             New Bill
           </LinkButton>
         }
       />
 
       <div className="toolbar">
-        <input
-          className="input search"
-          placeholder="🔍 Search by customer or bill number…"
+        <SearchInput
+          className="search"
+          placeholder="Search by customer or bill number…"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           aria-label="Search bills"
@@ -71,7 +72,7 @@ export default function BillsPage() {
 
       {bills.length === 0 ? (
         <EmptyState
-          emoji="🧾"
+          icon="receipt"
           title={state.bills.length === 0 ? "No bills yet" : "No bills match your search"}
           message={
             state.bills.length === 0
@@ -79,7 +80,7 @@ export default function BillsPage() {
               : "Try a different search or filter."
           }
           action={
-            <LinkButton href="/bills/new" variant="primary" icon="➕">
+            <LinkButton href="/bills/new" variant="primary" icon={<Icon name="plus" />}>
               Create New Bill
             </LinkButton>
           }

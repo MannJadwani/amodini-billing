@@ -4,6 +4,7 @@ import { useRef, useState } from "react";
 import { Bill, BusinessSettings } from "../lib/types";
 import { PdfInvoiceTemplate } from "./PdfInvoiceTemplate";
 import { Button } from "./ui";
+import { Icon } from "./Icon";
 import { downloadElementAsPdf } from "../lib/pdf";
 import { whatsappLink, formatMoney } from "../lib/format";
 import { useToast } from "./ToastProvider";
@@ -54,10 +55,10 @@ export function BillPreview({
     <div>
       {showActions ? (
         <div className="row no-print" style={{ marginBottom: 18 }}>
-          <Button variant="primary" icon="⬇️" onClick={handleDownload} disabled={busy}>
+          <Button variant="primary" icon={<Icon name="download" />} onClick={handleDownload} disabled={busy}>
             {busy ? "Preparing…" : "Download PDF"}
           </Button>
-          <Button variant="secondary" icon="🖨️" onClick={handlePrint}>
+          <Button variant="secondary" icon={<Icon name="printer" />} onClick={handlePrint}>
             Print
           </Button>
           <a
@@ -72,7 +73,10 @@ export function BillPreview({
               }
             }}
           >
-            <span className="ico">💬</span> Share WhatsApp
+            <span className="ico">
+              <Icon name="message" />
+            </span>{" "}
+            Share WhatsApp
           </a>
         </div>
       ) : null}

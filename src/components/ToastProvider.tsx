@@ -1,6 +1,7 @@
 "use client";
 
 import { createContext, useCallback, useContext, useState, type ReactNode } from "react";
+import { Icon } from "./Icon";
 
 type Toast = { id: number; message: string; tone: "default" | "success" | "error" };
 
@@ -43,7 +44,9 @@ export function ToastProvider({ children }: { children: ReactNode }) {
       <div className="toast-stack" aria-live="polite">
         {toasts.map((t) => (
           <div key={t.id} className={`toast ${t.tone}`} onClick={() => remove(t.id)}>
-            {t.tone === "success" ? "✅" : t.tone === "error" ? "⚠️" : "ℹ️"}
+            <span className="ico">
+              <Icon name={t.tone === "success" ? "check-circle" : t.tone === "error" ? "alert" : "info"} size={20} />
+            </span>
             <span>{t.message}</span>
           </div>
         ))}

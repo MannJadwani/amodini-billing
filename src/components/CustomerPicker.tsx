@@ -108,7 +108,7 @@ export function CustomerPicker({
                 setQuery("");
               }}
             >
-              ➕ Add new customer “{query.trim()}”
+              + Add new customer “{query.trim()}”
             </div>
           ) : null}
           {matches.length === 0 && !query.trim() ? (

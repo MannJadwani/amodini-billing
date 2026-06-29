@@ -13,6 +13,7 @@ import {
   useId,
 } from "react";
 import { BillStatus, BILL_STATUS_LABELS } from "../lib/types";
+import { Icon, type IconName } from "./Icon";
 
 type Variant = "primary" | "secondary" | "success" | "danger" | "ghost";
 
@@ -112,12 +113,12 @@ export function PageHeader({
 }
 
 export function EmptyState({
-  emoji = "📄",
+  icon = "receipt",
   title,
   message,
   action,
 }: {
-  emoji?: string;
+  icon?: IconName;
   title: string;
   message: string;
   action?: ReactNode;
@@ -125,7 +126,7 @@ export function EmptyState({
   return (
     <div className="empty-state">
       <div className="emo" aria-hidden>
-        {emoji}
+        <Icon name={icon} size={30} />
       </div>
       <h3>{title}</h3>
       <p>{message}</p>
@@ -169,6 +170,18 @@ export function Field({
 
 export function TextInput(props: InputHTMLAttributes<HTMLInputElement>) {
   return <input className="input" {...props} />;
+}
+
+export function SearchInput({
+  className = "",
+  ...props
+}: InputHTMLAttributes<HTMLInputElement>) {
+  return (
+    <div className={`search-field ${className}`}>
+      <Icon name="search" size={20} />
+      <input className="input" type="search" {...props} />
+    </div>
+  );
 }
 
 export function Select(props: SelectHTMLAttributes<HTMLSelectElement>) {

@@ -18,6 +18,7 @@ import {
   Select,
   TextInput,
 } from "../../../components/ui";
+import { Icon } from "../../../components/Icon";
 import { formatMoney, formatDate, todayISO } from "../../../lib/format";
 import { PaymentMode, PAYMENT_MODE_LABELS } from "../../../lib/types";
 import { useToast } from "../../../components/ToastProvider";
@@ -39,7 +40,7 @@ export default function BillDetailPage({ params }: { params: Promise<{ id: strin
   if (!bill) {
     return (
       <EmptyState
-        emoji="🔍"
+        icon="search"
         title="Bill not found"
         message="This bill may have been deleted."
         action={
@@ -78,7 +79,7 @@ export default function BillDetailPage({ params }: { params: Promise<{ id: strin
           <div className="row">
             <PaymentStatusBadge status={bill.status} />
             <LinkButton href="/bills" variant="ghost">
-              ← All bills
+              <Icon name="arrow-left" size={18} /> All bills
             </LinkButton>
           </div>
         }
@@ -91,7 +92,7 @@ export default function BillDetailPage({ params }: { params: Promise<{ id: strin
             <Button
               variant="success"
               size="lg"
-              icon="✅"
+              icon={<Icon name="check" />}
               onClick={() => {
                 billing.finalizeBill(bill.id);
                 toast.success("Bill finalized.");
@@ -101,19 +102,19 @@ export default function BillDetailPage({ params }: { params: Promise<{ id: strin
             </Button>
           ) : null}
           {canPay ? (
-            <Button variant="primary" size="lg" icon="💰" onClick={() => setPayOpen(true)}>
+            <Button variant="primary" size="lg" icon={<Icon name="wallet" />} onClick={() => setPayOpen(true)}>
               Record Payment
             </Button>
           ) : null}
-          <LinkButton href={`/bills/${bill.id}/edit`} variant="secondary" icon="✏️">
+          <LinkButton href={`/bills/${bill.id}/edit`} variant="secondary" icon={<Icon name="pencil" />}>
             Edit
           </LinkButton>
           {bill.status !== "cancelled" ? (
-            <Button variant="danger" icon="🚫" onClick={() => setConfirm("cancel")}>
+            <Button variant="danger" icon={<Icon name="ban" />} onClick={() => setConfirm("cancel")}>
               Cancel Bill
             </Button>
           ) : null}
-          <Button variant="danger" icon="🗑️" onClick={() => setConfirm("delete")}>
+          <Button variant="danger" icon={<Icon name="trash" />} onClick={() => setConfirm("delete")}>
             Delete
           </Button>
         </div>
@@ -141,7 +142,7 @@ export default function BillDetailPage({ params }: { params: Promise<{ id: strin
               <Button
                 variant="primary"
                 block
-                icon="💰"
+                icon={<Icon name="wallet" />}
                 style={{ marginTop: 14 }}
                 onClick={() => setPayOpen(true)}
               >

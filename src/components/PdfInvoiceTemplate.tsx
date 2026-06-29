@@ -68,9 +68,9 @@ export const PdfInvoiceTemplate = forwardRef<
               </div>
             ) : null}
             <div style={{ color: C.soft }}>
-              {settings.phone ? `📞 ${settings.phone}` : ""}
+              {settings.phone ? `Tel: ${settings.phone}` : ""}
               {settings.phone && settings.email ? "  ·  " : ""}
-              {settings.email ? `✉ ${settings.email}` : ""}
+              {settings.email ? settings.email : ""}
             </div>
             {settings.gstin ? (
               <div style={{ color: C.soft }}>GSTIN: {settings.gstin}</div>

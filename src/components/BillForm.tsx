@@ -8,6 +8,7 @@ import { computeItem, computeTotals } from "../lib/calc";
 import { detectBillIssues } from "../lib/insights";
 import { formatMoney } from "../lib/format";
 import { Button, Card, Field, TextInput, TextArea, Modal } from "./ui";
+import { Icon } from "./Icon";
 import { CustomerPicker } from "./CustomerPicker";
 import { ProductPicker } from "./ProductPicker";
 import { useToast } from "./ToastProvider";
@@ -257,7 +258,7 @@ export function BillForm({ existing }: { existing?: Bill }) {
                     setRows((rs) => (rs.length > 1 ? rs.filter((r) => r.id !== row.id) : rs))
                   }
                 >
-                  ✕
+                  <Icon name="trash" size={20} />
                 </button>
                 <div style={{ gridColumn: "1 / -1", textAlign: "right" }} className="muted">
                   Line total: <strong>{formatMoney(computed.lineTotal, state.settings.currency)}</strong>
@@ -266,7 +267,7 @@ export function BillForm({ existing }: { existing?: Bill }) {
             );
           })}
 
-          <Button variant="secondary" icon="➕" onClick={() => setRows((rs) => [...rs, newRow(defaultTax)])}>
+          <Button variant="secondary" icon={<Icon name="plus" />} onClick={() => setRows((rs) => [...rs, newRow(defaultTax)])}>
             Add another item
           </Button>
         </Card>
@@ -309,10 +310,10 @@ export function BillForm({ existing }: { existing?: Bill }) {
           </div>
 
           <div className="stack" style={{ marginTop: 18, gap: 12 }}>
-            <Button variant="success" size="lg" block icon="✅" onClick={handleFinalize}>
+            <Button variant="success" size="lg" block icon={<Icon name="check" />} onClick={handleFinalize}>
               Finalize Bill
             </Button>
-            <Button variant="secondary" block icon="💾" onClick={handleSaveDraft}>
+            <Button variant="secondary" block icon={<Icon name="save" />} onClick={handleSaveDraft}>
               Save as Draft
             </Button>
           </div>
@@ -320,7 +321,12 @@ export function BillForm({ existing }: { existing?: Bill }) {
 
         {issues.length > 0 ? (
           <Card>
-            <div className="card-title">⚠️ Please check</div>
+            <div className="card-title" style={{ display: "flex", alignItems: "center", gap: 8 }}>
+              <span style={{ color: "var(--warning)", display: "inline-flex" }}>
+                <Icon name="alert" size={20} />
+              </span>
+              Please check
+            </div>
             <ul style={{ margin: "8px 0 0", paddingLeft: 20 }}>
               {issues.map((iss, i) => (
                 <li key={i} className="muted" style={{ marginBottom: 6 }}>
@@ -331,7 +337,12 @@ export function BillForm({ existing }: { existing?: Bill }) {
           </Card>
         ) : (
           <Card>
-            <div className="muted">✅ This bill looks good. You can finalize it.</div>
+            <div className="muted" style={{ display: "flex", alignItems: "center", gap: 8 }}>
+              <span style={{ color: "var(--success)", display: "inline-flex" }}>
+                <Icon name="check-circle" size={20} />
+              </span>
+              This bill looks good. You can finalize it.
+            </div>
           </Card>
         )}
       </div>

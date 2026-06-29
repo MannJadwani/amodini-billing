@@ -10,8 +10,10 @@ import {
   Field,
   Modal,
   PageHeader,
+  SearchInput,
   TextInput,
 } from "../../components/ui";
+import { Icon } from "../../components/Icon";
 import { formatMoney, formatDate } from "../../lib/format";
 import { Customer } from "../../lib/types";
 import { useToast } from "../../components/ToastProvider";
@@ -62,16 +64,16 @@ export default function CustomersPage() {
         title="Customers"
         subtitle="The people you sell to."
         actions={
-          <Button variant="primary" size="lg" icon="➕" onClick={() => setEditing({})}>
+          <Button variant="primary" size="lg" icon={<Icon name="plus" />} onClick={() => setEditing({})}>
             Add Customer
           </Button>
         }
       />
 
       <div className="toolbar">
-        <input
-          className="input search"
-          placeholder="🔍 Search by name or phone…"
+        <SearchInput
+          className="search"
+          placeholder="Search by name or phone…"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           aria-label="Search customers"
@@ -80,7 +82,7 @@ export default function CustomersPage() {
 
       {filtered.length === 0 ? (
         <EmptyState
-          emoji="👥"
+          icon="users"
           title={state.customers.length === 0 ? "No customers yet" : "No matches"}
           message={
             state.customers.length === 0
@@ -88,7 +90,7 @@ export default function CustomersPage() {
               : "Try a different search."
           }
           action={
-            <Button variant="primary" icon="➕" onClick={() => setEditing({})}>
+            <Button variant="primary" icon={<Icon name="plus" />} onClick={() => setEditing({})}>
               Add Customer
             </Button>
           }

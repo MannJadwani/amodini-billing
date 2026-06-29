@@ -12,6 +12,8 @@ import {
   TextArea,
   TextInput,
 } from "../../components/ui";
+import { Icon } from "../../components/Icon";
+import { DensityToggle } from "../../components/Density";
 import { useToast } from "../../components/ToastProvider";
 
 const CURRENCIES = [
@@ -73,13 +75,27 @@ export default function SettingsPage() {
         title="Settings"
         subtitle="Set up your business once. It appears on every bill and PDF."
         actions={
-          <Button variant="primary" size="lg" icon="💾" onClick={save}>
+          <Button variant="primary" size="lg" icon={<Icon name="save" />} onClick={save}>
             Save Settings
           </Button>
         }
       />
 
       <div className="stack">
+        {/* Display mode */}
+        <Card>
+          <div className="spread">
+            <div>
+              <div className="card-title">Display mode</div>
+              <p className="card-hint">
+                <strong>Easy</strong> = bigger text & buttons (best for comfort).{" "}
+                <strong>Efficient</strong> = smaller & denser (more on screen).
+              </p>
+            </div>
+            <DensityToggle />
+          </div>
+        </Card>
+
         {/* Business profile */}
         <Card>
           <div className="card-title">Business profile</div>
@@ -93,12 +109,13 @@ export default function SettingsPage() {
                 width: 72,
                 height: 72,
                 borderRadius: 14,
-                background: "var(--brand-soft)",
-                color: "var(--brand)",
+                background: "var(--primary)",
+                color: "#fdf7ea",
                 display: "grid",
                 placeItems: "center",
-                fontWeight: 800,
-                fontSize: "1.8rem",
+                fontFamily: "var(--font-display-stack)",
+                fontWeight: 600,
+                fontSize: "1.9rem",
                 overflow: "hidden",
               }}
             >
@@ -209,7 +226,7 @@ export default function SettingsPage() {
             {aiConfigured === null
               ? "Checking…"
               : aiConfigured
-                ? "✅ AI chat is configured and ready."
+                ? "AI chat is configured and ready."
                 : "AI chat is not configured. Add OPENROUTER_API_KEY in .env.local to enable it. The app works fully without it."}
           </div>
           <Field label="Show the Smart Help button" htmlFor="ai-toggle">
@@ -230,13 +247,13 @@ export default function SettingsPage() {
           <p className="card-hint" style={{ marginBottom: 12 }}>
             Reset everything back to the sample customers, products and bills. Your changes will be lost.
           </p>
-          <Button variant="danger" icon="↺" onClick={() => setConfirmReset(true)}>
+          <Button variant="danger" icon={<Icon name="rotate" />} onClick={() => setConfirmReset(true)}>
             Reset to demo data
           </Button>
         </Card>
 
         <div className="form-actions">
-          <Button variant="primary" size="lg" icon="💾" onClick={save}>
+          <Button variant="primary" size="lg" icon={<Icon name="save" />} onClick={save}>
             Save Settings
           </Button>
         </div>

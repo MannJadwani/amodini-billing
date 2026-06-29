@@ -3,7 +3,8 @@
 import Link from "next/link";
 import { useMemo, useState } from "react";
 import { useBilling } from "../../lib/store";
-import { EmptyState, LinkButton, PageHeader } from "../../components/ui";
+import { EmptyState, LinkButton, PageHeader, SearchInput } from "../../components/ui";
+import { Icon } from "../../components/Icon";
 import { formatMoney, formatDate } from "../../lib/format";
 import { PaymentMode, PAYMENT_MODE_LABELS } from "../../lib/types";
 
@@ -50,9 +51,9 @@ export default function PaymentsPage() {
       </div>
 
       <div className="toolbar">
-        <input
-          className="input search"
-          placeholder="🔍 Search by customer or bill number…"
+        <SearchInput
+          className="search"
+          placeholder="Search by customer or bill number…"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           aria-label="Search payments"
@@ -68,7 +69,7 @@ export default function PaymentsPage() {
 
       {payments.length === 0 ? (
         <EmptyState
-          emoji="💰"
+          icon="wallet"
           title={state.payments.length === 0 ? "No payments yet" : "No matches"}
           message={
             state.payments.length === 0
@@ -76,7 +77,7 @@ export default function PaymentsPage() {
               : "Try a different search or filter."
           }
           action={
-            <LinkButton href="/bills" variant="primary" icon="🧾">
+            <LinkButton href="/bills" variant="primary" icon={<Icon name="receipt" />}>
               Go to bills
             </LinkButton>
           }

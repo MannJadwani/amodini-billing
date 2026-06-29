@@ -10,10 +10,12 @@ import {
   Field,
   Modal,
   PageHeader,
+  SearchInput,
   Select,
   TextArea,
   TextInput,
 } from "../../components/ui";
+import { Icon } from "../../components/Icon";
 import { formatMoney } from "../../lib/format";
 import { Product } from "../../lib/types";
 import { useToast } from "../../components/ToastProvider";
@@ -65,16 +67,16 @@ export default function ProductsPage() {
         title="Products & Services"
         subtitle="Save items so you can add them to bills quickly."
         actions={
-          <Button variant="primary" size="lg" icon="➕" onClick={() => setEditing({ active: true, defaultTaxRate: state.settings.defaultTaxRate })}>
+          <Button variant="primary" size="lg" icon={<Icon name="plus" />} onClick={() => setEditing({ active: true, defaultTaxRate: state.settings.defaultTaxRate })}>
             Add Product
           </Button>
         }
       />
 
       <div className="toolbar">
-        <input
-          className="input search"
-          placeholder="🔍 Search products…"
+        <SearchInput
+          className="search"
+          placeholder="Search products…"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           aria-label="Search products"
@@ -83,7 +85,7 @@ export default function ProductsPage() {
 
       {filtered.length === 0 ? (
         <EmptyState
-          emoji="📦"
+          icon="box"
           title={state.products.length === 0 ? "No products yet" : "No matches"}
           message={
             state.products.length === 0
@@ -91,7 +93,7 @@ export default function ProductsPage() {
               : "Try a different search."
           }
           action={
-            <Button variant="primary" icon="➕" onClick={() => setEditing({ active: true, defaultTaxRate: state.settings.defaultTaxRate })}>
+            <Button variant="primary" icon={<Icon name="plus" />} onClick={() => setEditing({ active: true, defaultTaxRate: state.settings.defaultTaxRate })}>
               Add Product
             </Button>
           }
