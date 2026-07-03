@@ -244,6 +244,27 @@ svg {
   padding: 12px 6px 0;
 }
 
+.sidebar-account {
+  margin-top: auto;
+  display: grid;
+  gap: 7px;
+  padding: 12px 6px 0;
+  border-top: 1px solid var(--line);
+}
+.sidebar-account span {
+  color: var(--ink-faint);
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+.sidebar-account strong {
+  font-size: 0.98rem;
+}
+.sidebar-account + .sidebar-footer {
+  margin-top: 0;
+}
+
 .content {
   flex: 1;
   min-width: 0;
@@ -765,6 +786,65 @@ a.row-card:hover {
 .item-row .remove:hover {
   background: var(--danger-soft);
 }
+.auth-page {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 28px;
+}
+.auth-wrap {
+  width: min(100%, 480px);
+}
+.auth-card {
+  width: 100%;
+  padding: clamp(24px, 5vw, 36px);
+  display: grid;
+  gap: 24px;
+  justify-items: center;
+}
+.auth-mark {
+  width: 72px;
+  height: 72px;
+  border-radius: 20px;
+  background: var(--primary);
+  color: #fdf7ea;
+  display: grid;
+  place-items: center;
+  font-family: var(--font-display-stack);
+  font-size: 2rem;
+  font-weight: 700;
+  box-shadow: var(--shadow-pop);
+}
+.auth-form {
+  width: 100%;
+  display: grid;
+  gap: 15px;
+}
+.auth-error {
+  width: 100%;
+  border: 1px solid var(--danger-soft);
+  border-radius: var(--radius-sm);
+  background: var(--danger-soft);
+  color: var(--danger);
+  padding: 11px 13px;
+  font-weight: 700;
+}
+.auth-note {
+  color: var(--ink-faint);
+  font-size: 0.9rem;
+  text-align: center;
+}
+.eyebrow {
+  color: var(--accent);
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+.mobile-sign-out {
+  min-height: 0;
+}
+
 @media (max-width: 760px) {
   .item-row {
     grid-template-columns: 1fr 1fr;

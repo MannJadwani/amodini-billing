@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useBilling } from "../lib/store";
+import { useAuth } from "../lib/auth";
 import { Icon, type IconName } from "./Icon";
 import { DensityToggle } from "./Density";
 
@@ -37,6 +38,7 @@ function Brand() {
 export function Sidebar() {
   const pathname = usePathname();
   const { state } = useBilling();
+  const auth = useAuth();
   return (
     <nav className="sidebar" aria-label="Main navigation">
       <div className="sidebar-brand">
@@ -56,6 +58,13 @@ export function Sidebar() {
         </Link>
       ))}
       <DensityToggle />
+      <div className="sidebar-account">
+        <span>Signed in as</span>
+        <strong>{auth.ownerName || "Business owner"}</strong>
+        <button type="button" className="btn btn-ghost btn-block" onClick={auth.logout}>
+          Sign out
+        </button>
+      </div>
       <div className="sidebar-footer">Works offline in your browser</div>
     </nav>
   );
@@ -63,12 +72,16 @@ export function Sidebar() {
 
 export function MobileBar() {
   const { state } = useBilling();
+  const auth = useAuth();
   return (
     <div className="mobile-bar">
       <Brand />
       <strong>{state.settings.businessName || "Simple Billing"}</strong>
       <span className="spacer" />
       <DensityToggle />
+      <button type="button" className="btn btn-ghost mobile-sign-out" onClick={auth.logout}>
+        Sign out
+      </button>
     </div>
   );
 }
