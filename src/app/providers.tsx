@@ -2,6 +2,7 @@
 
 import type { ReactNode } from "react";
 import { BillingProvider } from "../lib/store";
+import { AuthProvider } from "../lib/auth";
 import { ToastProvider } from "../components/ToastProvider";
 import { DensityProvider } from "../components/Density";
 
@@ -11,9 +12,11 @@ import { DensityProvider } from "../components/Density";
 export function Providers({ children }: { children: ReactNode }) {
   return (
     <DensityProvider>
-      <BillingProvider>
-        <ToastProvider>{children}</ToastProvider>
-      </BillingProvider>
+      <AuthProvider>
+        <BillingProvider>
+          <ToastProvider>{children}</ToastProvider>
+        </BillingProvider>
+      </AuthProvider>
     </DensityProvider>
   );
 }
