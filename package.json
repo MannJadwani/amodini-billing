@@ -1,7 +1,7 @@
 {
-  "name": "amodini-billing",
-  "version": "1.0.0",
-  "description": "A simple CopilotKit-powered billing management application.",
+  "name": "simple-billing",
+  "version": "2.0.0",
+  "description": "Simple Billing — an easy, elderly-friendly billing & invoicing app for small Indian businesses.",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -24,6 +24,7 @@
     "@copilotkit/react-core": "^1.60.1",
     "@copilotkit/react-ui": "^1.60.1",
     "@copilotkit/runtime": "^1.60.1",
+    "html2pdf.js": "^0.10.3",
     "next": "^16.2.9",
     "openai": "^4.104.0",
     "react": "^19.2.7",
